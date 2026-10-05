@@ -1,0 +1,161 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Hospital Portal — SecureHealth{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-copy">
+
+        <span class="eyebrow">AUTHORIZED ACCESS</span>
+
+        <h1>Hospital portal</h1>
+
+        <p>
+            Securely access patient information that has been
+            shared with your authorized hospital.
+        </p>
+
+        <div class="auth-points">
+
+            <div class="auth-point">
+                <span>✓</span>
+                <div>
+                    <strong>Controlled patient access</strong>
+                    <small>Only authorized records are available.</small>
+                </div>
+            </div>
+
+            <div class="auth-point">
+                <span>✓</span>
+                <div>
+                    <strong>Hospital credentials</strong>
+                    <small>Use your existing hospital account.</small>
+                </div>
+            </div>
+
+            <div class="auth-point">
+                <span>✓</span>
+                <div>
+                    <strong>Secure data sharing</strong>
+                    <small>Patient access follows the existing workflow.</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="auth-card">
+
+        <div class="auth-card-header">
+
+            <div class="auth-icon">⌂</div>
+
+            <span class="eyebrow">HOSPITAL LOGIN</span>
+
+            <h2>Welcome back</h2>
+
+            <p class="muted">
+                Enter your hospital credentials to continue.
+            </p>
+
+        </div>
+
+
+        {% if data %}
+        <div class="inline-message">
+            {{ data }}
+        </div>
+        {% endif %}
+
+
+        <form method="post"
+              action="{% url 'HospitalLogin' %}"
+              onsubmit="return validate(this);">
+
+            {% csrf_token %}
+
+            <label class="field">
+                <span>Username</span>
+
+                <div class="auth-input-wrapper">
+                    <span class="auth-input-icon">◉</span>
+
+                    <input
+                        type="text"
+                        name="t1"
+                        placeholder="Hospital username"
+                        autocomplete="username"
+                    >
+                </div>
+            </label>
+
+
+            <label class="field">
+                <span>Password</span>
+
+                <div class="auth-input-wrapper">
+                    <span class="auth-input-icon">⌑</span>
+
+                    <input
+                        name="t2"
+                        type="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                    >
+                </div>
+            </label>
+
+
+            <button class="btn btn-primary btn-full" type="submit">
+                Sign in <span>→</span>
+            </button>
+
+        </form>
+
+
+        <div class="login-security">
+
+            <span>✓</span>
+
+            <div>
+                <strong>Authorized hospital access</strong>
+                <small>Your session uses the existing SecureHealth workflow.</small>
+            </div>
+
+        </div>
+
+
+        <p class="auth-footer">
+            Need a patient profile?
+            <a href="{% url 'CreateProfile' %}">Create one</a>
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+function validate(formObj) {
+
+    if (!formObj.t1.value.trim()) {
+        alert("Please enter username");
+        formObj.t1.focus();
+        return false;
+    }
+
+    if (!formObj.t2.value.trim()) {
+        alert("Please enter password");
+        formObj.t2.focus();
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+{% endblock %}

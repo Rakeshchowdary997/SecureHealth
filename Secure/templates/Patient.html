@@ -1,0 +1,159 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Patient Portal — SecureHealth{% endblock %}
+
+{% block content %}
+
+<section class="auth-page patient-login-page">
+
+    <div class="auth-copy patient-auth">
+
+        <span class="eyebrow">PATIENT PORTAL</span>
+
+        <h1>Access your<br>patient record.</h1>
+
+        <p>
+            Use your secure patient ID to view the medical information
+            associated with your profile.
+        </p>
+
+        <div class="record-mini">
+
+            <span class="mini-icon">◇</span>
+
+            <div>
+                <strong>Private record access</strong>
+
+                <small>
+                    Your existing patient-ID workflow is preserved.
+                </small>
+            </div>
+
+        </div>
+
+        <div class="patient-security-points">
+
+            <div>
+                <span>✓</span>
+                <strong>Private</strong>
+                <small>Personal medical information</small>
+            </div>
+
+            <div>
+                <span>✓</span>
+                <strong>Controlled</strong>
+                <small>Access through your patient ID</small>
+            </div>
+
+            <div>
+                <span>✓</span>
+                <strong>Verified</strong>
+                <small>Blockchain-backed record integrity</small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="auth-card patient-login-card">
+
+        <div class="auth-card-header">
+
+            <div class="auth-icon patient-icon">◎</div>
+
+            <span class="eyebrow">PATIENT LOGIN</span>
+
+            <h2>Find your record</h2>
+
+            <p class="muted">
+                Enter your patient ID to continue.
+            </p>
+
+        </div>
+
+
+        {% if data %}
+        <div class="inline-message">
+            {{ data }}
+        </div>
+        {% endif %}
+
+
+        <form method="post"
+              action="{% url 'PatientLogin' %}"
+              onsubmit="return validate(this);">
+
+            {% csrf_token %}
+
+            <label class="field">
+
+                <span>Patient ID</span>
+
+                <div class="auth-input-wrapper">
+
+                    <span class="auth-input-icon">#</span>
+
+                    <input
+                        type="text"
+                        name="t1"
+                        placeholder="e.g. 1001"
+                        inputmode="numeric"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <small class="patient-input-help">
+                    Enter the patient ID provided when your profile was created.
+                </small>
+
+            </label>
+
+
+            <button class="btn btn-primary btn-full" type="submit">
+                Access record <span>→</span>
+            </button>
+
+        </form>
+
+
+        <div class="login-security patient-security">
+
+            <span>✓</span>
+
+            <div>
+                <strong>Private record access</strong>
+
+                <small>
+                    Your patient ID is used to locate your existing SecureHealth record.
+                </small>
+            </div>
+
+        </div>
+
+
+        <p class="auth-footer">
+            New patient?
+            <a href="{% url 'CreateProfile' %}">Create your profile</a>
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+function validate(formObj) {
+
+    if (!formObj.t1.value.trim()) {
+        alert("Please enter patient ID");
+        formObj.t1.focus();
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+{% endblock %}

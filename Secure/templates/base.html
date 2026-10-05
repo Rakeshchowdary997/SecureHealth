@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}SecureHealth{% endblock %}</title>
+    <meta name="description" content="Secure patient data management powered by blockchain and AI.">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="{% url 'index' %}">
+                <span class="brand-mark">S</span>
+                <span>
+                    <strong>SecureHealth</strong>
+                    <small>Blockchain-secured care</small>
+                </span>
+            </a>
+            <nav class="topnav" aria-label="Primary navigation">
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'Hospital' %}">Hospital</a>
+                <a href="{% url 'Patient' %}">Patient</a>
+                <a class="nav-cta" href="{% url 'CreateProfile' %}">+ New Patient</a>
+            </nav>
+        </header>
+
+        <main class="page">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div>
+                <strong>SecureHealth</strong>
+                <span>Private patient data • Controlled access • Blockchain verification</span>
+            </div>
+            <span>2026</span>
+        </footer>
+    </div>
+</body>
+</html>

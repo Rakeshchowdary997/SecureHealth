@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}SecureHealth — Secure Patient Data{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> Secure healthcare data platform</div>
+        <h1>Protect patient data.<br><span>Share it with confidence.</span></h1>
+        <p class="hero-text">A modern interface for controlled patient-data sharing, hospital access and blockchain-backed record verification.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{% url 'CreateProfile' %}">Create patient profile <span>→</span></a>
+            <a class="btn btn-secondary" href="{% url 'Hospital' %}">Hospital portal</a>
+        </div>
+        <div class="trust-row">
+            <div><strong>01</strong><span>Controlled access</span></div>
+            <div><strong>02</strong><span>SHA-256 verification</span></div>
+            <div><strong>03</strong><span>Hospital sharing</span></div>
+        </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+        <div class="orb orb-a"></div><div class="orb orb-b"></div>
+        <div class="secure-card">
+            <div class="secure-card-top"><span class="mini-icon">✦</span><span>RECORD STATUS</span><b>VERIFIED</b></div>
+            <div class="patient-preview">
+                <div class="avatar">P</div>
+                <div><strong>Patient Record</strong><small>Protected clinical profile</small></div>
+            </div>
+            <div class="hash-line"><span>BLOCKCHAIN HASH</span><code>••••••••••••••••••••••</code></div>
+            <div class="secure-progress"><span></span></div>
+            <div class="secure-foot"><span>Access control enabled</span><span>✓</span></div>
+        </div>
+        <div class="floating-card floating-one"><span>✓</span><div><strong>Access approved</strong><small>Hospital 1</small></div></div>
+        <div class="floating-card floating-two"><span>⌁</span><div><strong>Data integrity</strong><small>Blockchain verified</small></div></div>
+    </div>
+</section>
+
+<section class="section-head">
+    <div><span class="eyebrow">CORE WORKFLOW</span><h2>One secure flow for patient data.</h2></div>
+    <p>Keep the existing backend workflow while presenting it through a cleaner, easier-to-use interface.</p>
+</section>
+
+<section class="feature-grid">
+    <a class="feature-card" href="{% url 'CreateProfile' %}">
+        <span class="feature-number">01</span><div class="feature-icon">＋</div>
+        <h3>Create patient profile</h3><p>Capture essential patient and medical information in one structured form.</p><span class="feature-link">Open profile creation →</span>
+    </a>
+    <a class="feature-card" href="{% url 'Patient' %}">
+        <span class="feature-number">02</span><div class="feature-icon">◉</div>
+        <h3>Patient access</h3><p>Retrieve a patient record using the existing patient-ID workflow.</p><span class="feature-link">Open patient portal →</span>
+    </a>
+    <a class="feature-card" href="{% url 'Hospital' %}">
+        <span class="feature-number">03</span><div class="feature-icon">⌂</div>
+        <h3>Hospital access</h3><p>Authorized hospitals can access shared patient data through the current flow.</p><span class="feature-link">Open hospital portal →</span>
+    </a>
+</section>
+
+<section class="info-banner">
+    <div><span class="banner-icon">◇</span><div><strong>Blockchain-backed record creation</strong><p>Patient profile data is hashed during the existing creation workflow before it is stored.</p></div></div>
+    <a href="{% url 'CreateProfile' %}" class="text-link">Create a record →</a>
+</section>
+{% endblock %}

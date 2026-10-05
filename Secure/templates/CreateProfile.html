@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Create Patient Profile — SecureHealth{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div><span class="eyebrow">PATIENT MANAGEMENT</span><h1>Create patient profile</h1><p>Add a patient record and define which hospitals can access it.</p></div>
+    <div class="heading-badge"><span>●</span> Secure entry</div>
+</div>
+
+{% if data %}
+<div class="alert {% if 'Error' in data or 'error' in data %}alert-error{% else %}alert-success{% endif %}">
+    <span class="alert-icon">{% if 'Error' in data or 'error' in data %}!{% else %}✓{% endif %}</span>
+    <div><strong>{% if 'Error' in data or 'error' in data %}Something needs attention{% else %}Profile created{% endif %}</strong><span>{{ data }}</span></div>
+</div>
+{% endif %}
+
+<form name="f1" method="post" action="{% url 'CreateProfileData' %}" onsubmit="return validate(this);" class="form-layout">
+{% csrf_token %}
+    <section class="form-card">
+        <div class="form-card-head"><div><span class="step">01</span><div><h2>Patient information</h2><p>Basic identity details</p></div></div></div>
+        <div class="form-grid two">
+            <label class="field"><span>Patient name <b>*</b></span><input type="text" name="t1" placeholder="Enter full name" autocomplete="name"></label>
+            <label class="field compact"><span>Age <b>*</b></span><input name="t2" type="text" inputmode="numeric" placeholder="Years" maxlength="3"></label>
+            <label class="field"><span>Gender</span><select name="t5"><option value="Male">Male</option><option value="Female">Female</option></select></label>
+        </div>
+    </section>
+
+    <section class="form-card">
+        <div class="form-card-head"><div><span class="step">02</span><div><h2>Medical information</h2><p>Describe the patient's condition</p></div></div></div>
+        <label class="field"><span>Problem description <b>*</b></span><textarea name="t3" rows="6" placeholder="Enter symptoms, condition or problem description..."></textarea><small>Keep the description clear enough for an authorized hospital to understand the record.</small></label>
+    </section>
+
+    <section class="form-card">
+        <div class="form-card-head"><div><span class="step">03</span><div><h2>Access control</h2><p>Choose the hospitals allowed to view shared data</p></div></div></div>
+        <div class="access-grid">
+            <label class="access-option"><input type="checkbox" name="t4" value="Hospital1"><span class="check-ui">✓</span><span><strong>Hospital 1</strong><small>Authorized healthcare provider</small></span></label>
+            <label class="access-option"><input type="checkbox" name="t4" value="Hospital2"><span class="check-ui">✓</span><span><strong>Hospital 2</strong><small>Authorized healthcare provider</small></span></label>
+        </div>
+    </section>
+
+    <section class="form-card">
+        <div class="form-card-head"><div><span class="step">04</span><div><h2>Contact information</h2><p>How the patient can be reached</p></div></div></div>
+        <div class="form-grid two">
+            <label class="field"><span>Contact number <b>*</b></span><input type="text" name="t6" inputmode="numeric" placeholder="Enter contact number" autocomplete="tel"></label>
+        </div>
+        <label class="field"><span>Address <b>*</b></span><textarea name="t7" rows="4" placeholder="Enter complete address..." autocomplete="street-address"></textarea></label>
+    </section>
+
+    <div class="form-actions">
+        <a class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create patient profile <span>→</span></button>
+    </div>
+</form>
+
+<script>
+function validate(formObj) {
+    if (formObj.t1.value.trim().length === 0) { alert("Please enter patient name"); formObj.t1.focus(); return false; }
+    if (formObj.t2.value.trim().length === 0) { alert("Please enter age"); formObj.t2.focus(); return false; }
+    if (isNaN(formObj.t2.value)) { alert("Age must be numeric"); formObj.t2.focus(); return false; }
+    if (formObj.t3.value.trim().length === 0) { alert("Please enter problem description"); formObj.t3.focus(); return false; }
+    if (formObj.t6.value.trim().length === 0) { alert("Please enter contact number"); formObj.t6.focus(); return false; }
+    if (isNaN(formObj.t6.value)) { alert("Contact number must be numeric"); formObj.t6.focus(); return false; }
+    if (formObj.t7.value.trim().length === 0) { alert("Please enter address"); formObj.t7.focus(); return false; }
+    return true;
+}
+</script>
+{% endblock %}

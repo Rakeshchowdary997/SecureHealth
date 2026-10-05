@@ -1,0 +1,113 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Patient Record — SecureHealth{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">PATIENT RECORD</span>
+        <h1>Patient information</h1>
+        <p>Secure patient information retrieved from the existing patient-ID lookup.</p>
+    </div>
+
+    <a class="btn btn-secondary" href="{% url 'Patient' %}">← Back to Patient Login</a>
+</section>
+
+<section class="card" style="margin-top:24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="font-size:28px;">🔐</div>
+        <div>
+            <h2 style="margin:0;">Protected Medical Record</h2>
+            <p style="margin:4px 0 0;color:#64748b;">
+                This record was retrieved through the secure patient-ID workflow.
+            </p>
+        </div>
+    </div>
+
+    <div style="overflow-x:auto;" id="patient-record-table">
+        {{ data|safe }}
+    </div>
+</section>
+
+<section class="card" style="margin-top:20px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:24px;">⛓️</div>
+        <div>
+            <h3 style="margin:0 0 6px;">Blockchain verification</h3>
+            <p style="margin:0;color:#64748b;">
+                The record is associated with a blockchain-generated integrity hash.
+            </p>
+        </div>
+    </div>
+
+    <div style="margin-top:18px;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#64748b;margin-bottom:6px;">
+            RECORD INTEGRITY
+        </div>
+        <div style="font-size:13px;color:#334155;">
+            Blockchain hash verified as part of the existing patient record.
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const table = document.querySelector("#patient-record-table table");
+
+    if (!table) return;
+
+    const headerCells = table.querySelectorAll("th");
+
+    headerCells.forEach(function (header, index) {
+        if (header.textContent.trim().toLowerCase().includes("block chain hash")) {
+            const hashIndex = index;
+
+            table.querySelectorAll("tr").forEach(function (row) {
+                const cell = row.children[hashIndex];
+
+                if (!cell || cell.tagName.toLowerCase() !== "td") return;
+
+                const fullHash = cell.textContent.trim();
+
+                if (!fullHash) return;
+
+                const shortHash =
+                    fullHash.length > 18
+                    ? fullHash.substring(0, 8) + "..." + fullHash.substring(fullHash.length - 8)
+                    : fullHash;
+
+                cell.innerHTML = `
+                    <div style="display:flex;align-items:center;gap:8px;min-width:180px;">
+                        <code title="${fullHash.replace(/"/g, '&quot;')}"
+                              style="font-size:12px;color:#334155;white-space:nowrap;">
+                            ${shortHash}
+                        </code>
+
+                        <button type="button"
+                                onclick="copyBlockchainHash(this)"
+                                data-hash="${fullHash.replace(/"/g, '&quot;')}"
+                                style="border:1px solid #dbe3ef;background:#fff;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:600;cursor:pointer;color:#2563eb;">
+                            Copy
+                        </button>
+                    </div>
+                `;
+            });
+        }
+    });
+});
+
+function copyBlockchainHash(button) {
+    const hash = button.getAttribute("data-hash");
+
+    navigator.clipboard.writeText(hash).then(function () {
+        const originalText = button.textContent;
+        button.textContent = "Copied";
+
+        setTimeout(function () {
+            button.textContent = originalText;
+        }, 1500);
+    });
+}
+</script>
+
+{% endblock %}

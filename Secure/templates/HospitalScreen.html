@@ -1,0 +1,144 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Hospital Dashboard — SecureHealth{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-hero">
+
+    <div class="dashboard-hero-content">
+        <span class="eyebrow">HOSPITAL SECURITY CONSOLE</span>
+
+        <h1>Welcome to your secure workspace</h1>
+
+        <p>{{ data }}</p>
+    </div>
+
+    <div class="verified-pill">
+        <span class="verified-dot"></span>
+        Session active
+    </div>
+
+</section>
+
+<section class="dashboard-summary">
+
+    <div class="summary-card">
+        <span class="summary-label">ACCESS</span>
+        <strong>Controlled</strong>
+        <span>Hospital-authorized records</span>
+    </div>
+
+    <div class="summary-card">
+        <span class="summary-label">SECURITY</span>
+        <strong>Protected</strong>
+        <span>Access rules enabled</span>
+    </div>
+
+    <div class="summary-card">
+        <span class="summary-label">INTEGRITY</span>
+        <strong>Blockchain</strong>
+        <span>Hash-backed patient profiles</span>
+    </div>
+
+</section>
+
+<section class="dashboard-section-heading">
+    <div>
+        <span class="eyebrow">SECURE OPERATIONS</span>
+        <h2>Patient data workspace</h2>
+    </div>
+
+    <span class="workspace-status">
+        <span></span>
+        System ready
+    </span>
+</section>
+
+<section class="dashboard-grid">
+
+    <a class="dash-card primary-card" href="{% url 'AccessData' %}">
+
+        <div class="dash-card-top">
+            <div class="dash-icon">⌕</div>
+            <span class="card-number">01</span>
+        </div>
+
+        <span class="eyebrow">PATIENT DATA</span>
+
+        <h2>Access shared records</h2>
+
+        <p>
+            Search patient information that has been securely
+            shared with your hospital.
+        </p>
+
+        <span class="feature-link">
+            Open data access <span>→</span>
+        </span>
+
+    </a>
+
+
+    <div class="dash-card">
+
+        <div class="dash-card-top">
+            <div class="dash-icon">◇</div>
+            <span class="card-number">02</span>
+        </div>
+
+        <span class="eyebrow">SECURITY</span>
+
+        <h2>Controlled access</h2>
+
+        <p>
+            Patient information is returned according to
+            the existing hospital authorization rules.
+        </p>
+
+        <div class="status-line">
+            <span class="status-dot"></span>
+            Access control enabled
+        </div>
+
+    </div>
+
+
+    <div class="dash-card">
+
+        <div class="dash-card-top">
+            <div class="dash-icon">#</div>
+            <span class="card-number">03</span>
+        </div>
+
+        <span class="eyebrow">INTEGRITY</span>
+
+        <h2>Blockchain verification</h2>
+
+        <p>
+            Patient profiles receive a blockchain-generated
+            integrity hash during creation.
+        </p>
+
+        <div class="status-line">
+            <span class="status-dot"></span>
+            Hash-backed records
+        </div>
+
+    </div>
+
+</section>
+
+<section class="dashboard-actions">
+
+    <a class="btn btn-primary" href="{% url 'AccessData' %}">
+        Access patient data <span>→</span>
+    </a>
+
+    <a class="btn btn-secondary" href="{% url 'index' %}">
+        Logout
+    </a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Patient Data Access — SecureHealth{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">HOSPITAL WORKSPACE</span>
+        <h1>Access shared patient data</h1>
+        <p>Search for patient records that have been securely shared with your hospital.</p>
+    </div>
+
+    <div class="heading-badge">
+        <span>●</span> Authorized session
+    </div>
+</section>
+
+<section class="search-card">
+
+    <div class="search-card-icon">⌕</div>
+
+    <div class="search-card-copy">
+        <span class="eyebrow">PATIENT DATA</span>
+        <h2>Find a shared patient record</h2>
+        <p>
+            Search using a medical condition, symptom, or keyword.
+            Only records authorized for this hospital will be returned.
+        </p>
+    </div>
+
+    <form method="post"
+          action="{% url 'PatientDataAccess' %}"
+          onsubmit="return validate(this);"
+          class="search-form">
+
+        {% csrf_token %}
+
+        <label class="field">
+            <span>Search patient records</span>
+
+            <div class="search-input-wrapper">
+                <span class="search-input-icon">⌕</span>
+
+                <input
+                    type="text"
+                    name="t1"
+                    placeholder="Try fever, diabetes, hypertension..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <small>
+                Enter a medical problem or keyword from the patient record.
+            </small>
+        </label>
+
+        <button class="btn btn-primary" type="submit">
+            Search records <span>→</span>
+        </button>
+
+    </form>
+
+</section>
+
+<section class="access-info-grid">
+
+    <div class="access-info-card">
+        <div class="access-info-icon">✓</div>
+
+        <div>
+            <h3>Controlled access</h3>
+            <p>
+                Patient information is returned only when the record
+                has been shared with the signed-in hospital.
+            </p>
+        </div>
+    </div>
+
+    <div class="access-info-card">
+        <div class="access-info-icon">⌁</div>
+
+        <div>
+            <h3>Privacy protected</h3>
+            <p>
+                The existing hospital access workflow keeps
+                unauthorized patient records out of search results.
+            </p>
+        </div>
+    </div>
+
+    <div class="access-info-card">
+        <div class="access-info-icon">#</div>
+
+        <div>
+            <h3>Blockchain-backed</h3>
+            <p>
+                Patient profiles include a blockchain-generated
+                integrity hash created by the existing system.
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<section class="security-note">
+    <span>✓</span>
+
+    <div>
+        <strong>Secure hospital access enabled</strong>
+
+        <p>
+            Search results are filtered through the existing
+            hospital authorization workflow.
+        </p>
+    </div>
+</section>
+
+<script>
+function validate(formObj) {
+    if (!formObj.t1.value.trim()) {
+        alert("Please enter a patient search keyword.");
+        formObj.t1.focus();
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+{% endblock %}
