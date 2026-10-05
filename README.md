@@ -169,7 +169,9 @@ SecureHealth/
           └──────────────────┘    └──────────────────┘
 
 #🔄 Application Workflow
+
 Patient Workflow
+
 Patient
    │
    ▼
@@ -186,6 +188,7 @@ MySQL Database
 
 
 #Hospital Workflow
+
 Hospital
    │
    ▼
@@ -207,6 +210,7 @@ Access Patient Information
 Display Patient Record
 
 #Data Integrity Workflow
+
 Patient Information
         │
         ▼
